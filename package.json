@@ -33,5 +33,8 @@
     "expressjs": "^1.0.1",
     "redis": "^2.8.0",
     "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0"
   }
 }
