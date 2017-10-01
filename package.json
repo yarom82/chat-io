@@ -1,0 +1,37 @@
+{
+  "name": "chat-io",
+  "version": "1.0.0",
+  "description": "a chat using username, sending public or private messages, supports c50K users.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarom82/chat-io.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "node",
+    "node.js",
+    "socket.io",
+    "redis",
+    "chat"
+  ],
+  "author": "Yarom Shoval <yarom.adi@gmail.com> (yarom82)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yarom82/chat-io/issues"
+  },
+  "homepage": "https://github.com/yarom82/chat-io#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bulma": "^0.5.3",
+    "express": "^4.15.5",
+    "expressjs": "^1.0.1",
+    "redis": "^2.8.0",
+    "socket.io": "^2.0.3"
+  }
+}

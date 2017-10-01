@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Node.js + Socket.io + Redis Chat | ScaleGrid</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="icons/chat-io-logo.png" alt="Chat.io - a modren chat app"/>
+          Chat.IO
+        </a>
+        <a class="navbar-item is-hidden-desktop" href="https://github.com/yarom82" target="_blank">
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-lg fa-github"></i>
+          </span>
+        </a>
+        <a class="navbar-item is-hidden-desktop" href="http://facebook.com/yarom.shoval" target="_blank">
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-lg fa-facebook"></i>
+          </span>
+        </a>
+        <a class="navbar-item is-hidden-desktop" href="http://youtube.com/yarom.shoval" target="_blank">
+          <span class="icon" style="color: #333;">
+            <i class="fa fa-lg fa-youtube"></i>
+          </span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item is-hidden-desktop-only" href="https://github.com/yarom82" target="_blank">
+            <span class="icon" style="color: #333;">
+              <i class="fa fa-lg fa-github"></i>
+            </span>
+          </a>
+          <a class="navbar-item is-hidden-desktop-only" href="http://facebook.com/yarom.shoval" target="_blank">
+            <span class="icon" style="color: #333;">
+              <i class="fa fa-lg fa-facebook"></i>
+            </span>
+          </a>
+          <a class="navbar-item is-hidden-desktop-only" href="https://www.youtube.com/user/yarom82" target="_blank">
+            <span class="icon" style="color: #333;">
+              <i class="fa fa-lg fa-youtube"></i>
+            </span>
+          </a>
+          <div class="navbar-item">
+            <div class="field is-grouped" style="margin-bottom: 0;">
+              <p class="control">
+                <a class="bd-tw-button button" data-social-network="GitHub" data-social-action="github" data-social-target="https://github.com/yarom82"
+                  target="_blank">
+                  <span class="icon">
+                    <i class="fa fa-github"></i>
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </p>
+            </div>
+            <div class="field is-grouped" style="margin-bottom: 0;">
+              <p class="control">
+                <a class="bd-tw-button button" data-social-network="Facebook" data-social-action="facebook" data-social-target="http://facebook.com/yarom.shoval"
+                  target="_blank">
+                  <span class="icon">
+                    <i class="fa fa-facebook"></i>
+                  </span>
+                  <span>facebook</span>
+                </a>
+              </p>
+            </div>
+            <div class="field is-grouped" style="margin-bottom: 0;">
+              <p class="control">
+                <a class="bd-tw-button button" data-social-network="YouTube" data-social-action="youtube" data-social-target="http://youtube.com/yarom.shoval"
+                  target="_blank">
+                  <span class="icon">
+                    <i class="fa fa-youtube"></i>
+                  </span>
+                  <span>YouTube</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Chat.IO - By Yarom Shoval
+          </h1>
+          <h2 class="subtitle">
+            Build with Node.js | Socket.io | Redis
+          </h2>
+        </div>
+      </div>
+    </section>
+    <sction class="hero is-medium join-chat">
+      <div class="hero-body">
+        <div class="columns">
+          <div class="column is-half is-offset-one-quarter">
+            <div class="field">
+              <label class="label">Username</label>
+              <div class="control has-icons-left has-icons-right">
+                <input id="username" name="username" class="input is-success" type="text" placeholder="User Name" value="">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fa fa-check"></i>
+                </span>
+              </div>
+              <p class="help is-success">This username is available</p>
+            </div>
+            <div class="control">
+              <button id="join-chat" class="button is-primary">Join Chat</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sction>
+  
+    <div class="chat-info control is-pulled-right"></div><br /><br />
+    <div class="chat tile is-ancestor">
+        <div class="tile is-8 box" style="margin-bottom: 0;">
+          <section class="hero is-small" style="width: 100%;">
+              <div class="hero-body messages-body" style="overflow-y: scroll; height: 350px;">
+                <div class="container messages" style="width: 100%;">
+
+                </div>
+              </div>
+              <br/>
+              <div class="hero-footer">
+                <div class="field">
+                  <div class="control">
+                    <input name="message" id="message" class="input is-primary is-medium" type="text" placeholder="Enter your message...">
+                  </div>
+                </div>
+                <div class="control is-pulled-left">
+                  <button id="send-message" class="button is-primary">Send Message</button>
+                </div>
+                <div class="control is-pulled-right">
+                  <button id="leave-message" class="button is-danger">Leave Chat</button>
+                </div>
+              </div>
+          </section>
+        </div>
+        <div class="tile box">
+          <p class="subtitle">Private Messages</p>
+        </div>
+      </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.6.0/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
