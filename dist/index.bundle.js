@@ -21546,8 +21546,8 @@ var ChatBody = /** @class */ (function (_super) {
                         React.createElement("div", { className: "field" },
                             React.createElement("div", { className: "control" },
                                 React.createElement("input", { name: "message", id: "message", className: "input is-primary is-medium", type: "text", placeholder: "Enter your message..." }))),
-                        React.createElement(ChatButton_1.ChatButton, { id: "send-message", text: "Send Message", containerClass: "is-pulled-left", buttonClass: "is-primary fa-paper-plane-o" }),
-                        React.createElement(ChatButton_1.ChatButton, { id: "leave-chat", text: "Leave Chat", containerClass: "is-pulled-right", buttonClass: "is-danger fa-sign-out" })))),
+                        React.createElement(ChatButton_1.ChatButton, { id: "send-message", text: "Send Message", containerClass: "is-pulled-left", buttonClass: "is-primary fa fa-paper-plane-o" }),
+                        React.createElement(ChatButton_1.ChatButton, { id: "leave-chat", text: "Leave Chat", containerClass: "is-pulled-right", buttonClass: "is-danger fa fa-sign-out" })))),
             React.createElement("div", { className: "tile box" },
                 React.createElement("p", { className: "subtitle" }, "Private Messages")));
     };

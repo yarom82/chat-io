@@ -16,8 +16,8 @@ export class ChatBody extends React.Component<{}> {
                 <input name="message" id="message" className="input is-primary is-medium" type="text" placeholder="Enter your message..."></input>
               </div>
             </div>
-            <ChatButton id="send-message" text="Send Message" containerClass="is-pulled-left" buttonClass="is-primary fa fa-fw fa-paper-plane-o" />
-            <ChatButton id="leave-chat" text="Leave Chat" containerClass="is-pulled-right" buttonClass="is-danger fa fa-fw fa-sign-out" />
+            <ChatButton id="send-message" text="Send Message" containerClass="is-pulled-left" buttonClass="is-primary fa fa-paper-plane-o" />
+            <ChatButton id="leave-chat" text="Leave Chat" containerClass="is-pulled-right" buttonClass="is-danger fa fa-sign-out" />
           </div>
         </section>
       </div>
