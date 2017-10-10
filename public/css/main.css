@@ -1,0 +1,28 @@
+.chat {
+  margin-top: 0px !important;
+}
+
+.chat .box {
+  margin-bottom: 0px !important;
+}
+
+.chat .box .hero {
+  width: 100%;
+}
+
+.chat .box .hero .hero-body {
+  overflow-y: scroll;
+  height: 350px;
+}
+
+.chat .box .hero .hero-body .messages {
+  width: 100%;
+}
+
+.navbar-menu .navbar-end .navbar-item .field {
+  margin-bottom: 0;
+}
+
+.chat-info {
+  margin: -30px 6px 0px 0px;
+}

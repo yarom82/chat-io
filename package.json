@@ -27,14 +27,25 @@
   },
   "homepage": "https://github.com/yarom82/chat-io#readme",
   "dependencies": {
+    "@types/react": "^16.0.9",
+    "@types/react-dom": "^16.0.0",
     "body-parser": "^1.18.2",
     "bulma": "^0.5.3",
     "express": "^4.15.5",
     "expressjs": "^1.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "redis": "^2.8.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
   },
   "devDependencies": {
-    "ava": "^0.22.0"
+    "@types/jquery": "^3.2.13",
+    "@types/socket.io": "^1.4.31",
+    "@types/socket.io-client": "^1.4.30",
+    "ava": "^0.22.0",
+    "awesome-typescript-loader": "^3.2.3",
+    "source-map-loader": "^0.2.2",
+    "typescript": "^2.5.3"
   }
 }

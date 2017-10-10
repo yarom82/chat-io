@@ -51,10 +51,26 @@ fs.readFile('creds.json', 'utf-8', function(err, data) {
 
 app.get('/', function (req, res) {
     console.log('/')
-    res.sendFile('views/index.html', {
+    res.sendFile('dist/index.html', {
         root: __dirname
     })
-    console.log('views/index.html')
+    console.log('dist/index.html')
+})
+
+app.get('/index.bundle.js', function (req, res) {
+    console.log('/index.bundle.js')
+    res.sendFile('dist/index.bundle.js', {
+        root: __dirname
+    })
+    console.log('dist/index.bundle.js')
+})
+
+app.get('/main.bundle.js', function (req, res) {
+    console.log('/main.bundle.js')
+    res.sendFile('dist/main.bundle.js', {
+        root: __dirname
+    })
+    console.log('dist/main.bundle.js')
 })
 
 app.post('/join', function(req, res) {
