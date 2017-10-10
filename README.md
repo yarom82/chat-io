@@ -10,5 +10,6 @@ Chat with your friends and send them PMs.
 
 1. Clone the repository.
 1. `$ npm install`
+1. `$ webpack`
 1. `$ npm start`
 1. Open it in a browser - http://localhost:8080.

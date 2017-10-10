@@ -1,8 +1,24 @@
+import * as io from 'socket.io-client'
+
+// 
+// import * as React from 'react'
+// import * as ReactDOM from 'react-dom'
+// import SocialFieldLarge from '../components/social-field-large'
+//
+
+interface MessageData {
+    username: string
+    message: string
+}
+
+interface CountData {
+    action: string
+}
+
 $(function () {
-        
-    // test
-    var socket = io()
-    var users_count
+
+    let socket = io()
+    let users_count : number
 
     $('.chat').hide()
     $('.chat-info').hide()
@@ -13,7 +29,7 @@ $(function () {
     })
 
     $('#join-chat').click(function() {
-        var username = $.trim($('#username').val())
+        const username = $.trim($('#username').val() as string)
         $.ajax({
             url: '/join',
             type: 'POST',
@@ -31,9 +47,9 @@ $(function () {
                     $('#send-message').data('username', username)
                     $.get('/get_messages', function(response) {
                         if (response.length > 0) {
-                            var message_count = response.length
-                            var html = ''
-                            for (var x = 0; x < message_count; x++) {
+                            const message_count = response.length
+                            let html = ''
+                            for (let x = 0; x < message_count; x++) {
                                 html += "<div class='msg'><span class='user'><strong>" + response[x]['sender'] + ": </strong></span><span class='txt'>" + response[x]['message'] + "</span></div>"
                             }
                             $('.messages').html(html)
@@ -50,7 +66,7 @@ $(function () {
     })
 
     $('#leave-chat').click(function() {
-        var username = $(this).data('username')
+        const username = $(this).data('username')
         $.ajax({
             url: '/leave',
             type: 'POST',
@@ -78,8 +94,8 @@ $(function () {
     })
 
     $('#send-message').click(function() {
-        var username = $(this).data('username')
-        var message = $.trim($('#message').val())
+        const username = $(this).data('username')
+        const message = $.trim($('#message').val() as string)
         $.ajax({
             url: '/send_message',
             type: 'POST',
@@ -100,15 +116,15 @@ $(function () {
         })
     })
 
-    socket.on('send', function(data) {
-        var username = data.username
-        var message = data.message
-        var html = "<div class='msg'><span class='user'><strong>" + username + ": </strong></span><span class='txt'>" + message + "</span></div>"
+    socket.on('send', function(data : MessageData) {
+        const username = data.username
+        const message = data.message
+        const html = "<div class='msg'><span class='user'><strong>" + username + ": </strong></span><span class='txt'>" + message + "</span></div>"
         $('.messages').append(html)
         $(".messages-body").scrollTop($(".messages-body")[0].scrollHeight)
     })
 
-    socket.on('count_users', function(data) {
+    socket.on('count_users', function(data : CountData) {
         if (data.action == 'increase') {
             users_count++
         } else {
@@ -116,4 +132,7 @@ $(function () {
         }
         $('.chat-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
     })
+
+    // alert('b')
+    // ReactDOM.render(<SocialFieldLarge />, document.getElementById("youtube-large"));
 })
