@@ -48,7 +48,8 @@
     "ava": "^0.22.0",
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.2.2",
-    "typescript": "^2.5.3"
+    "typescript": "^2.5.3",
+    "webpack": "^3.7.0"
   },
   "engines": {
     "node": "8.6.0"
