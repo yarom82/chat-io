@@ -4,7 +4,7 @@
   "description": "a chat using username, sending public or private messages, supports c50K users.",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
+    "heroku-prebuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "start": "node index.js",
     "test": "tsc && ava"
   },
