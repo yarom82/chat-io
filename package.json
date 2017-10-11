@@ -4,7 +4,7 @@
   "description": "a chat using username, sending public or private messages, supports c50K users.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --progress --colors",
+    "build": "node node_modules/webpack/bin/webpack.js --config ./webpack.config.js --progress --colors",
     "start": "node index.js",
     "postinstall": "npm run build",
     "test": "tsc && ava"
