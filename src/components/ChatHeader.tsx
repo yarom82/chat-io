@@ -6,7 +6,7 @@ export class ChatHeader extends React.Component<{}> {
     <div className="hero-body">
       <div className="container">
         <h1 className="title">
-          Chat.IO - By Yarom Shoval
+          Chat.IO - by Yarom Shoval
         </h1>
         <h2 className="subtitle">
           Build with Node.js | Socket.io | Redis
