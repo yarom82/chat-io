@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.2.13",
+    "@types/jqueryui": "^1.11.37",
     "@types/socket.io": "^1.4.31",
     "@types/socket.io-client": "^1.4.30",
     "ava": "^0.22.0",

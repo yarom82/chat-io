@@ -22,7 +22,7 @@ export class ChatBody extends React.Component<{}> {
         </section>
       </div>
       <div className="tile box">
-        <p className="subtitle">Private Messages</p>
+        <div id="private-messages"></div>
       </div>
     </div>
   }

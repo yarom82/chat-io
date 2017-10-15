@@ -23,6 +23,8 @@ http.listen(port, function() {
 
 let users = []
 let messages = []
+let usersSockets = []
+let sockets_by_id = {}
 
 fs.readFile('creds.json', 'utf-8', function(err, data) {
     if (err) throw err
@@ -124,8 +126,9 @@ app.get('/get_users', function(req, res) {
     res.send(users)
 })
 
-io.on('connection', function(socket) {
-    console.log('** connection **')
+io.sockets.on('connection', function(socket) {
+    console.log('** connection ** ' + socket.id)
+
     socket.on('message', function(data) {
         console.log('** message **')
         io.emit('send', data)
@@ -133,6 +136,32 @@ io.on('connection', function(socket) {
 
     socket.on('update_users_count', function(data) {
         console.log('** update_users_count **')
+        if (data.action == 'increase') {
+            client.hget('users:' + data.username, 'socketid', function (err, reply) {
+                if (reply) {
+                    client.hdel('users:' + data.username, 'socketid')
+                }
+                client.hset('users:' + data.username, 'socketid', socket.id)
+                // Workaround: Can't get Socket by it's id since Socket.IO 1.4
+                sockets_by_id[socket.id] = socket
+            })
+        } else {
+            client.hdel('users:' + data.username, 'socketid')
+            sockets_by_id[socket.id] = null
+        }
+                
         io.emit('count_users', data)
     })
+
+    socket.on("private", function(data) {     
+        console.log('** private **')
+        client.hget('users:' + data.to, 'socketid', function (err, sessionId) {
+            // Workaround: Can't get Socket by it's id sincce Socket.IO 1.4
+            const toSession = sockets_by_id[sessionId]
+            if (toSession) {
+                toSession.emit("send_private_message", data);
+            }
+            // io.to('/#' + reply).emit - doens't work anymore
+        })
+    });
 })

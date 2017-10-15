@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { NavigationBar } from './Navigation/NavigationBar'
+import { NavigationBar } from './navigation/NavigationBar'
 import { ChatHeader } from './ChatHeader'
 import { JoinChat } from './JoinChat'
 import { ChatInfo } from './ChatInfo'
