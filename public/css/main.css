@@ -26,3 +26,30 @@
 .chat-info {
   margin: -30px 6px 0px 0px;
 }
+
+span.user {
+  cursor: pointer;
+  text-decoration: underline;
+  margin-right: 10px;
+}
+
+#private-messages article {
+  margin-bottom: 20px;
+}
+
+#private-messages .message-body {
+  padding-bottom: 40px;
+}
+
+#private-messages .message-body textarea {
+  margin-bottom: 10px;
+}
+
+#private-messages .message-body .input {
+  float: left;
+  width: 75%;
+}
+
+#private-messages .message-body .button {
+  float: right;
+}
