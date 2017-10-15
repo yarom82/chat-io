@@ -26,7 +26,7 @@ $(function () {
   $('.chat-info').hide()
 
   $.get('/get_users', function (response) {
-    $('.chat-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
+    $('.users-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
     users_count = response.length
   })
 
@@ -44,6 +44,7 @@ $(function () {
             'action': 'increase',
             'username': username
           })
+          $('.user-info').html("<div class='tags has-addons'><span class='tag is-primary'>Hello</span><span class='tag my-username is-white'>" + username + "</span></div>")
           $('.chat').show()
           $('.chat-info').show()
           $('#leave-chat').data('username', username)
@@ -88,7 +89,7 @@ $(function () {
   })
 
   $('#leave-chat').click(function () {
-    const username = $(this).data('username')
+    const username = $('.my-username').text()
     $.ajax({
       url: '/leave',
       type: 'POST',
@@ -117,7 +118,7 @@ $(function () {
   })
 
   $('#send-message').click(function () {
-    const username = $(this).data('username')
+    const username = $('.my-username').text()
     const message = $.trim($('#message').val() as string)
     $.ajax({
       url: '/send_message',
@@ -140,7 +141,7 @@ $(function () {
   })
 
   socket.on('send', function (data: MessageData) {
-    const username = $(this).data('username')
+    const username = $('.my-username').text()
     const senderUsername = data.username
     const message = data.message
 
@@ -173,7 +174,7 @@ $(function () {
       users_count--
     }
     // TODO: change to React component
-    $('.chat-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
+    $('.users-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
   })
 
   socket.on('send_private_message', function (data: PrivateData) {
@@ -229,7 +230,6 @@ $(function () {
     button.setAttribute('type', 'button')
     button.addEventListener('click', function() {
       sendPrivateMessage(to, from, $('#pm-input-' + to).val().toString());
-      //const privateMessageTextarea = $(this).parents('textarea.textarea')
       $(messages).scrollTop($(messages)[0].scrollHeight)
       text.value = ''
     })
@@ -242,6 +242,7 @@ $(function () {
     privateMessageArticle.appendChild(body)
     
     $privateMessages.append(privateMessageArticle)
+    $('#pm-input-' + to).focus()
   }
 
   const sendPrivateMessage = function (to: string, from: string, message: string) {
