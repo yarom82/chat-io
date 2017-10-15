@@ -12,7 +12,8 @@ export class ChatIO extends React.Component<{}> {
       <NavigationBar />
       <ChatHeader />
       <JoinChat />
-      <ChatInfo />
+      <ChatInfo className='is-pulled-left user-info'/>
+      <ChatInfo className='is-pulled-right users-info'/>      
       <ChatBody />
     </div>
   }

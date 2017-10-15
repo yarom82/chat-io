@@ -23,8 +23,16 @@
   margin-bottom: 0;
 }
 
-.chat-info {
+.users-info {
   margin: -30px 6px 0px 0px;
+}
+
+.user-info {
+  margin: -30px 0px 0px 15px;
+}
+
+.user-info .my-username {
+  color: #00d1b2 !important;
 }
 
 span.user {
@@ -43,6 +51,7 @@ span.user {
 
 #private-messages .message-body textarea {
   margin-bottom: 10px;
+  background-color: white;
 }
 
 #private-messages .message-body .input {

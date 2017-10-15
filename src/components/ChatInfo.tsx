@@ -1,7 +1,11 @@
 import * as React from 'react'
 
-export class ChatInfo extends React.Component<{}> {
+interface ChatInfoProps {
+  className: string
+}
+
+export class ChatInfo extends React.Component<ChatInfoProps, {}> {
   render() {
-    return <div className="chat-info control is-pulled-right"></div>
+    return <div className={"chat-info control " + this.props.className}></div>
   }
 }

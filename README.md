@@ -4,12 +4,12 @@ An amazing chat with PMs. Build with [Node.js](https://nodejs.org/), [Socket.io]
 
 ## Chat!
 
-Chat with your friends and send them PMs.
+Chat with your friends and send them PMs over [here](https://yarom-chat-io.herokuapp.com/).
 
 ## Start a Local Development Server
 
 1. Clone the repository.
 1. `$ npm install`
-1. `$ webpack`
+1. `$ npx webpack`
 1. `$ npm start`
 1. Open it in a browser - http://localhost:8080.
