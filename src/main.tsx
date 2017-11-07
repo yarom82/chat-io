@@ -1,6 +1,11 @@
 import * as io from 'socket.io-client'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { UsersInfo } from './components/UsersInfo'
+import { UserInfo } from './components/UserInfo'
+import { Messages } from './components/Messages'
+import { Message } from './components/Message'
+import { PrivateMessage } from './components/PrivateMessage'
 
 interface MessageData {
   username: string
@@ -26,7 +31,12 @@ $(function () {
   $('.chat-info').hide()
 
   $.get('/get_users', function (response) {
-    $('.users-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
+
+    ReactDOM.render(
+      <UsersInfo count={users_count} />,
+      $('.users-info')[0]
+    )
+
     users_count = response.length
   })
 
@@ -44,38 +54,22 @@ $(function () {
             'action': 'increase',
             'username': username
           })
-          $('.user-info').html("<div class='tags has-addons'><span class='tag is-primary'>Hello</span><span class='tag my-username is-white'>" + username + "</span></div>")
+
+          ReactDOM.render(
+            <UserInfo username={username} />,
+            $('.user-info')[0]
+          )
+
           $('.chat').show()
           $('.chat-info').show()
           $('#leave-chat').data('username', username)
           $('#send-message').data('username', username)
           $.get('/get_messages', function (response) {
             if (response.length > 0) {
-              const message_count = response.length
-              let html : NodeListOf<Element>
-              for (let x = 0; x < message_count; x++) {
-                const senderUsername = response[x]['sender']
-                const message = response[x]['message']
-
-                const divElement = document.createElement('div');
-                const spanUser = document.createElement('span')
-                spanUser.className = "user"
-                spanUser.addEventListener('click', function(){
-                  createPrivateMessage(senderUsername, username);
-                });
-                const strongUser = document.createElement('strong')
-                strongUser.style.color = stringToColour(senderUsername)
-                strongUser.textContent = senderUsername + ":"
-                const spanMessage = document.createElement('span')
-                spanMessage.className = "txt"
-                spanMessage.textContent = message
-                
-                spanUser.appendChild(strongUser)
-                divElement.appendChild(spanUser)
-                divElement.appendChild(spanMessage)
-
-                $('.messages').append(divElement)
-              }
+              ReactDOM.render(
+                <Messages messages={response} username={username} createPrivateMessageFunc={createPrivateMessage} />,
+                $('.messages')[0]
+              )
               $(".messages-body").scrollTop($(".messages-body")[0].scrollHeight)
             }
           })
@@ -145,25 +139,12 @@ $(function () {
     const senderUsername = data.username
     const message = data.message
 
-    // TODO: change to React component
-    const divElement = document.createElement('div');
-    const spanUser = document.createElement('span')
-    spanUser.className = "user"
-    spanUser.addEventListener('click', function(){
-      createPrivateMessage(senderUsername, username);
-    });
-    const strongUser = document.createElement('strong')
-    strongUser.style.color = stringToColour(senderUsername)
-    strongUser.textContent = senderUsername + ":"
-    const spanMessage = document.createElement('span')
-    spanMessage.className = "txt"
-    spanMessage.textContent = message
-    
-    spanUser.appendChild(strongUser)
-    divElement.appendChild(spanUser)
-    divElement.appendChild(spanMessage)
+    ReactDOM.render(
+      <Message username={username} senderUsername={senderUsername}
+        message={message} createPrivateMessageFunc={createPrivateMessage} />,
+      $('.messages')[0]
+    )
 
-    $('.messages').append(divElement)
     $(".messages-body").scrollTop($(".messages-body")[0].scrollHeight)
   })
 
@@ -173,8 +154,11 @@ $(function () {
     } else {
       users_count--
     }
-    // TODO: change to React component
-    $('.users-info').html("<div class='tags has-addons'><span class='tag'>Users</span><span class='tag is-info'>" + users_count + "</span></div>")
+
+    ReactDOM.render(
+      <UsersInfo count={users_count} />,
+      $('.users-info')[0]
+    )
   })
 
   socket.on('send_private_message', function (data: PrivateData) {
@@ -191,57 +175,16 @@ $(function () {
   })
 
   const createPrivateMessage = function (to: string, from: string) {
-    // TODO: Create React components
     if ($('#pm-' + to).length > 0) {
       $('#pm-input-' + to).focus()
       return
     }
-    const $privateMessages = $('#private-messages')
-    const privateMessageArticle = document.createElement('article')
-    const header = document.createElement('div')
-    header.className = 'message-header'
-    header.style.backgroundColor = stringToColour(to)
-    const headerText = document.createElement('p')
-    headerText.innerText = to
-    const closePrivateMessage = document.createElement('button')
-    closePrivateMessage.className = 'delete'
-    closePrivateMessage.setAttribute('aria-label', 'delete')
-    closePrivateMessage.addEventListener('click', function() {
-      $(this).parents('article').first().remove()
-    })
-    header.appendChild(headerText)
-    header.appendChild(closePrivateMessage)
-    const body = document.createElement('div');
-    body.className = 'message-body'
-    const pmBody = document.createElement('div')
-    const messages = document.createElement('textarea')
-    messages.className = 'textarea is-small'
-    messages.setAttribute('id', 'pm-' + to)
-    messages.setAttribute('rows', '4')
-    messages.setAttribute('cols', '45')
-    messages.disabled = true
-    const text = document.createElement('input')
-    text.className = 'input is-small'
-    text.setAttribute('type', 'text')
-    text.setAttribute('id', 'pm-input-' + to)
-    const button = document.createElement('input')
-    button.value = 'Send'
-    button.className = 'button is-small'
-    button.setAttribute('type', 'button')
-    button.addEventListener('click', function() {
-      sendPrivateMessage(to, from, $('#pm-input-' + to).val().toString());
-      $(messages).scrollTop($(messages)[0].scrollHeight)
-      text.value = ''
-    })
-    pmBody.appendChild(messages)
-    pmBody.appendChild(text)
-    pmBody.appendChild(button)
-    body.appendChild(pmBody)
-
-    privateMessageArticle.appendChild(header)
-    privateMessageArticle.appendChild(body)
     
-    $privateMessages.append(privateMessageArticle)
+    ReactDOM.render(
+      <PrivateMessage username={from} to={to} sendPrivateMessageFunc={sendPrivateMessage} />,
+      $('#private-messages')[0]
+    )
+    
     $('#pm-input-' + to).focus()
   }
 
@@ -255,16 +198,3 @@ $(function () {
     $pm.val($pm.val() + from + ': ' + message + '\n')
   }
 })
-
-const stringToColour = function (str: string) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  let colour = '#';
-  for (let i = 0; i < 3; i++) {
-    const value = (hash >> (i * 8)) & 0xFF;
-    colour += ('00' + value.toString(16)).substr(-2);
-  }
-  return colour;
-}
